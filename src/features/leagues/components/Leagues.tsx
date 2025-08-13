@@ -1,11 +1,8 @@
-import { useEffect, useState, useMemo, type FC, type ReactElement } from 'react';
-import SearchBar from './ui/SearchBar';
-import Dropdown from './ui/Dropdown';
+import { useEffect, useState, useMemo, Suspense, type FC, type ReactElement } from 'react';
 import { useLeaguesContext } from '../context/LeaguesContext';
 import type { DropdownOption } from '../interfaces/ui.interface';
-import EmptyLeagues from './ui/EmptyLeagues';
-import LeagueCard from './ui/LeagueCard';
-import Pagination from './ui/Pagination';
+import { LazySearchBar, LazyDropdown, LazyLeagueCard, LazyPagination, LazyEmptyLeagues } from './LazyComponents';
+import { ComponentLoading, FilterLoading, CardGridLoading } from './ui/LoadingComponents';
 
 const ITEMS_PER_PAGE = 12;
 
@@ -62,38 +59,51 @@ const Leagues: FC = (): ReactElement => {
           <div className="mb-8 space-y-4 sm:space-y-0 sm:flex sm:gap-4">
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700 mb-2">Search Leagues</label>
-              <SearchBar />
+              <Suspense fallback={<ComponentLoading height="h-10" />}>
+                <LazySearchBar />
+              </Suspense>
             </div>
             <div className="sm:w-64">
               <label className="block text-sm font-medium text-gray-700 mb-2">Filter by Sport</label>
-              <Dropdown
-                options={formattedSportsTypes}
-                placeholder="All Sports"
-                value={selectedValue}
-                onChange={(option) => setSelectedValue(option as DropdownOption)}
-              />
+
+              <Suspense fallback={<ComponentLoading height="h-10" />}>
+                <LazyDropdown
+                  options={formattedSportsTypes}
+                  placeholder="All Sports"
+                  value={selectedValue}
+                  onChange={(option) => setSelectedValue(option as DropdownOption)}
+                />
+              </Suspense>
             </div>
           </div>
         )}
 
         {loading && (
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-            <span className="ml-3 text-lg text-gray-600">Loading leagues...</span>
+          <div className="space-y-8">
+            <FilterLoading />
+            <CardGridLoading />
           </div>
         )}
 
         {!loading && allLeagues.length > 0 && (
           <>
-            <LeagueCard leagues={currentPageLeagues} />
+            <Suspense fallback={<CardGridLoading />}>
+              <LazyLeagueCard leagues={currentPageLeagues} />
+            </Suspense>
+
             <div className="mt-8 grid justify-start">
-              <Pagination currentPage={currentPage} totalPages={totalPages} onPaginationData={handlePageChange} />
+              <Suspense fallback={<ComponentLoading height="h-12" />}>
+                <LazyPagination currentPage={currentPage} totalPages={totalPages} onPaginationData={handlePageChange} />
+              </Suspense>
             </div>
           </>
         )}
 
-        {(!loading && allLeagues.length === 0) ||
-          (error && <EmptyLeagues loading={!loading && allLeagues.length === 0} error={error} />)}
+        {((!loading && allLeagues.length === 0) || error) && (
+          <Suspense fallback={<ComponentLoading height="h-64" />}>
+            <LazyEmptyLeagues loading={!loading && allLeagues.length === 0 && !error} error={error} />
+          </Suspense>
+        )}
       </main>
     </div>
   );

@@ -68,7 +68,7 @@ const LeagueCard: FC<{ leagues: League[] }> = ({ leagues }): ReactElement => {
             {isSelected && (
               <div
                 onClick={() => handleCardClick(null)}
-                className="absolute flex items-center justify-center h-40 inset-0 z-10 bg-white rounded-lg border border-gray-200 border-b-0 overflow-hidden animate-in fade-in duration-300"
+                className="absolute cursor-pointer flex items-center justify-center h-40 inset-0 z-10 bg-white rounded-lg border border-gray-200 border-b-0 overflow-hidden animate-in fade-in duration-300"
               >
                 {(loading || imageLoading) && !error ? (
                   <LoadingSpinner />
