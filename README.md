@@ -1,69 +1,69 @@
-# React + TypeScript + Vite
+# Sports Leagues App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React TypeScript application that displays sports leagues from around the world. The application has search and filtering capabilities. The app fetches data from `TheSportsDB` API and implements state management and data caching. The user interface is styled with `TailwinCSS`.
 
-Currently, two official plugins are available:
+# App Features
+- Browse sports leagues
+- Search leagues by name
+- Filter leagues by type
+- View season badges for leagues
+- Cache data for improved performance
+- Responsive design with `TailwindCSS`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies & Tools
+- React 19
+- TypeScript
+- TailwindCSS
+- React Context API
+- Cache Storage API
+- Vite
+- Prettier
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js (v20.0.0 or later)
+- npm
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Clone the repository
+   ```bash
+   git clone https://github.com/uzochukwueddie/sports-league.git
+   cd sports-league
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies
+   ```bash
+   npm install
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+3. Start the development server
+   ```bash
+   npm run dev
+   ```
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+4. Open your browser and navigate to `http://localhost:4000`
+
+## Current Limitations
+
+### 1. **API Dependency**
+- **Single API Source**: The app relies entirely on TheSportsDB API. If the API is down or rate-limited, the entire app becomes non-functional
+- **No Offline Fallback**: While caching is implemented, there's no comprehensive offline mode for when the API is unavailable
+
+### 2. **Search and Filtering**
+- **Basic Search**: Only supports simple text matching, no advanced search operators or fuzzy matching
+- **Limited Filters**: Only sport type filtering available, no other metadata-based filters
+- **No Search History**: Users cannot see or reuse previous searches
+
+### 3. **Development and Maintenance**
+- **No Testing**: No unit tests, integration tests, or end-to-end tests implemented
+
+## AI Tools Used
+
+The AI tool significantly accelerated the development process.
+
+- **Anthropic Claude** - 
+   - Used to generate UI mockups and design concepts
+   - Assisted with refactoring of some code

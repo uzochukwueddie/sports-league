@@ -42,7 +42,7 @@ const LeagueCard: FC<{ leagues: League[] }> = ({ leagues }): ReactElement => {
 
   const handleCardClick = (league: League | null): void => {
     if (league) {
-      setSelectedLeague(selectedLeague?.idLeague === league.idLeague ? null : league);
+      setSelectedLeague(league);
       setImageLoading(true);
       fetchSeasonBadge(league.idLeague).finally(() => setImageLoading(false));
     } else {
