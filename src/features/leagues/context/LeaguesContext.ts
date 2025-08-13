@@ -1,35 +1,40 @@
 import { createContext, useContext } from 'react';
-import type { LeaguesState, League } from '../interfaces/league.interface';
+import {
+  type LeaguesState,
+  type League,
+  type LeagueType,
+  type LeaguesContextType,
+  initialLeagueState
+} from '../interfaces/league.interface';
 
-type LeaguesAction =
-  | { type: 'FETCH_START' }
-  | { type: 'FETCH_SUCCESS'; payload: League[] }
-  | { type: 'FETCH_ERROR'; payload: Error }
-  | { type: 'SET_SELECTED_SPORT'; payload: string }
-  | { type: 'SET_SEARCH_TERM'; payload: string };
+export const LeaguesContext = createContext<LeaguesContextType>({
+  state: initialLeagueState,
+  dispatch: () => null,
+  fetchLeagues: async () => {},
+  getFilteredLeagues: () => [],
+  getSportTypes: () => []
+});
 
-interface LeaguesContextType {
-  state: LeaguesState;
-  dispatch: React.Dispatch<LeaguesAction>;
-  fetchLeagues: () => Promise<void>;
-  getFilteredLeagues: () => League[];
-  getSportTypes: () => string[];
-}
+export const leaguesMainReducer = (state: LeaguesState, action: LeagueType): LeaguesState => ({
+  leagues: leaguesReducer(state, action).leagues,
+  loading: leaguesReducer(state, action).loading,
+  error: leaguesReducer(state, action).error,
+  selectedSport: leaguesReducer(state, action).selectedSport,
+  searchTerm: leaguesReducer(state, action).searchTerm
+});
 
-export const LeaguesContext = createContext<LeaguesContextType | undefined>(undefined);
-
-export const leaguesReducer = (state: LeaguesState, action: LeaguesAction): LeaguesState => {
+export const leaguesReducer = (state: LeaguesState, action: LeagueType): LeaguesState => {
   switch (action.type) {
     case 'FETCH_START':
       return { ...state, loading: true, error: null };
     case 'FETCH_SUCCESS':
-      return { ...state, loading: false, leagues: action.payload };
+      return { ...state, loading: false, leagues: action.payload as League[] };
     case 'FETCH_ERROR':
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload as Error };
     case 'SET_SELECTED_SPORT':
-      return { ...state, selectedSport: action.payload };
+      return { ...state, selectedSport: action.payload as string };
     case 'SET_SEARCH_TERM':
-      return { ...state, searchTerm: action.payload };
+      return { ...state, searchTerm: action.payload as string };
     default:
       return state;
   }

@@ -16,12 +16,11 @@ export class CacheManager {
   }
 
   // Create cache entry with TTL metadata
-  async set<T>(key: string, data: T, ttlSeconds = 300): Promise<boolean> {
+  async set<T>(key: string, data: T, ttlSeconds = 3600): Promise<boolean> {
     if (!this.cache) return false;
 
     const cacheEntry: CacheEntry<T> = {
       data,
-      timestamp: Date.now(),
       ttl: ttlSeconds * 1000,
       expires: Date.now() + ttlSeconds * 1000
     };
@@ -60,10 +59,7 @@ export class CacheManager {
       }
 
       return {
-        data: cacheEntry.data,
-        isStale: now > cacheEntry.timestamp + cacheEntry.ttl * 0.8, // 80% of TTL
-        age: now - cacheEntry.timestamp,
-        expires: cacheEntry.expires
+        data: cacheEntry.data
       };
     } catch (error) {
       console.warn('Cache read failed:', error);

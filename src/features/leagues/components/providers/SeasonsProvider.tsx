@@ -1,16 +1,10 @@
 import { useReducer, type FC, type ReactElement, type ReactNode } from 'react';
 import { seasonReducer, SeasonsContext } from '../../context/SeasonsContext';
-import type { SeasonState } from '../../interfaces/season.interface';
+import { initialSeasonState } from '../../interfaces/season.interface';
 import { sportService } from '../../services/sport.service';
 
-const initialState: SeasonState = {
-  seasonBadges: {},
-  loading: {},
-  errors: {}
-};
-
 const SeasonProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement => {
-  const [state, dispatch] = useReducer(seasonReducer, initialState);
+  const [state, dispatch] = useReducer(seasonReducer, initialSeasonState);
 
   const fetchSeasonBadge = async (leagueId: string): Promise<void> => {
     dispatch({ type: 'FETCH_BADGE_START', payload: leagueId });
