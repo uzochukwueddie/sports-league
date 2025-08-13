@@ -1,7 +1,7 @@
 import { useReducer, useCallback, type FC, type ReactNode, type ReactElement } from 'react';
-import type { League, LeaguesState } from '../interfaces/league.interface';
-import { sportService } from '../services/sport.service';
-import { LeaguesContext, leaguesReducer } from '../context/LeaguesContext';
+import { leaguesReducer, LeaguesContext } from '../../context/LeaguesContext';
+import type { LeaguesState, League } from '../../interfaces/league.interface';
+import { sportService } from '../../services/sport.service';
 
 const initialState: LeaguesState = {
   leagues: [],
@@ -16,7 +16,7 @@ const LeaguesProvider: FC<{ children: ReactNode }> = ({ children }): ReactElemen
 
   // Memoize fetchLeagues to prevent infinite API calls
   const fetchLeagues = useCallback(async () => {
-    // dispatch({ type: 'FETCH_START' });
+    dispatch({ type: 'FETCH_START' });
     try {
       const response = await sportService.getAllLeagues();
       dispatch({ type: 'FETCH_SUCCESS', payload: response.leagues });

@@ -1,7 +1,7 @@
 import { useReducer, type FC, type ReactElement, type ReactNode } from "react";
-import { seasonReducer, SeasonsContext } from "../context/SeasonsContext";
-import { sportService } from '../services/sport.service';
-import type { SeasonState } from "../interfaces/season.interface";
+import { seasonReducer, SeasonsContext } from "../../context/SeasonsContext";
+import type { SeasonState } from "../../interfaces/season.interface";
+import { sportService } from "../../services/sport.service";
 
 const initialState: SeasonState = {
   seasonBadges: {},
@@ -9,7 +9,7 @@ const initialState: SeasonState = {
   errors: {},
 };
 
-export const SeasonProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement => {
+const SeasonProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement => {
   const [state, dispatch] = useReducer(seasonReducer, initialState);
 
   const fetchSeasonBadge = async (leagueId: string): Promise<void> => {
@@ -96,3 +96,5 @@ export const SeasonProvider: FC<{ children: ReactNode }> = ({ children }): React
     </SeasonsContext.Provider>
   );
 };
+
+export default SeasonProvider;
