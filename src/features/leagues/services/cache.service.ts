@@ -1,4 +1,4 @@
-import type { CacheEntry, CacheResult } from "../interfaces/cache.interface";
+import type { CacheEntry, CacheResult } from '../interfaces/cache.interface';
 
 export class CacheManager {
   private cacheName: string;
@@ -23,7 +23,7 @@ export class CacheManager {
       data,
       timestamp: Date.now(),
       ttl: ttlSeconds * 1000,
-      expires: Date.now() + (ttlSeconds * 1000)
+      expires: Date.now() + ttlSeconds * 1000
     };
 
     const response = new Response(JSON.stringify(cacheEntry), {
@@ -61,7 +61,7 @@ export class CacheManager {
 
       return {
         data: cacheEntry.data,
-        isStale: now > (cacheEntry.timestamp + (cacheEntry.ttl * 0.8)), // 80% of TTL
+        isStale: now > cacheEntry.timestamp + cacheEntry.ttl * 0.8, // 80% of TTL
         age: now - cacheEntry.timestamp,
         expires: cacheEntry.expires
       };
@@ -83,11 +83,11 @@ export class CacheManager {
   }
 
   // Clear all cache
-  async clear(): Promise<boolean>  {
+  async clear(): Promise<boolean> {
     if (!this.cache) return false;
     try {
       const keys = await this.cache.keys();
-      const deletePromises = keys.map(request => this.cache?.delete(request));
+      const deletePromises = keys.map((request) => this.cache?.delete(request));
       await Promise.all(deletePromises);
       return true;
     } catch (error) {

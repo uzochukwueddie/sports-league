@@ -32,7 +32,7 @@ const Leagues: FC = (): ReactElement => {
     return {
       label: type,
       value: type.toLowerCase()
-    }
+    };
   });
 
   const handlePageChange = (page: number): void => {
@@ -87,21 +87,16 @@ const Leagues: FC = (): ReactElement => {
           <>
             <LeagueCard leagues={currentPageLeagues} />
             <div className="mt-8 grid justify-start">
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPaginationData={handlePageChange}
-              />
+              <Pagination currentPage={currentPage} totalPages={totalPages} onPaginationData={handlePageChange} />
             </div>
           </>
         )}
 
-        {(!loading && allLeagues.length === 0) || error && (
-          <EmptyLeagues loading={!loading && allLeagues.length === 0} error={error} />
-        )}
+        {(!loading && allLeagues.length === 0) ||
+          (error && <EmptyLeagues loading={!loading && allLeagues.length === 0} error={error} />)}
       </main>
     </div>
   );
-}
+};
 
 export default Leagues;

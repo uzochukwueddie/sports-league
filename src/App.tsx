@@ -1,5 +1,5 @@
-import type { FC, ReactElement } from "react";
-import Leagues from "./features/leagues/components/Leagues";
+import type { FC, ReactElement } from 'react';
+import Leagues from './features/leagues/components/Leagues';
 
 const App: FC = (): ReactElement => {
   return (
@@ -7,6 +7,6 @@ const App: FC = (): ReactElement => {
       <Leagues />
     </div>
   );
-}
+};
 
 export default App;

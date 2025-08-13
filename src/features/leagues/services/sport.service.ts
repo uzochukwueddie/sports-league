@@ -1,7 +1,7 @@
-import type { CacheResult } from "../interfaces/cache.interface";
-import type { LeaguesResponse } from "../interfaces/league.interface";
-import type { SeasonsResponse } from "../interfaces/season.interface";
-import { CacheManager } from "./cache.service";
+import type { CacheResult } from '../interfaces/cache.interface';
+import type { LeaguesResponse } from '../interfaces/league.interface';
+import type { SeasonsResponse } from '../interfaces/season.interface';
+import { CacheManager } from './cache.service';
 
 const BASE_URL = 'https://www.thesportsdb.com/api/v1/json/3';
 const LEAGUES_CACHE_KEY = 'leagues';
@@ -24,7 +24,7 @@ class SportService {
     // Try to get data from cache
     try {
       if ('caches' in window) {
-        const response = await this.cacheManager.get(LEAGUES_CACHE_KEY) as CacheResult;
+        const response = (await this.cacheManager.get(LEAGUES_CACHE_KEY)) as CacheResult;
         if (response) {
           return response.data as LeaguesResponse;
         }
@@ -45,7 +45,7 @@ class SportService {
     // Try to get data from cache
     try {
       if ('caches' in window) {
-        const response = await this.cacheManager.get(url) as CacheResult;
+        const response = (await this.cacheManager.get(url)) as CacheResult;
         if (response) {
           return response.data as SeasonsResponse;
         }
@@ -146,7 +146,7 @@ class SportService {
       const url: string = `${BASE_URL}/search_all_seasons.php?badge=1&id=${leagueId}`;
 
       // Check if season data is cached
-      const cachedSeasonData = await this.cacheManager.get(url) as CacheResult;
+      const cachedSeasonData = (await this.cacheManager.get(url)) as CacheResult;
       if (!cachedSeasonData) {
         return null; // No cached season data
       }

@@ -1,5 +1,5 @@
-import { useEffect, useState, type ChangeEvent, type FC, type ReactElement } from 'react'
-import Input from './Input'
+import { useEffect, useState, type ChangeEvent, type FC, type ReactElement } from 'react';
+import Input from './Input';
 import { Search } from 'lucide-react';
 import { useLeaguesContext } from '../../context/LeaguesContext';
 import { useDebounce } from '../../../../hooks/useDebounce';
@@ -15,9 +15,7 @@ const SearchBar: FC = (): ReactElement => {
 
   return (
     <div className="relative">
-      <div
-        className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-      >
+      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
         <Search className="w-5 h-5 text-gray-400" />
       </div>
       <Input
@@ -28,7 +26,7 @@ const SearchBar: FC = (): ReactElement => {
         className="w-full pl-8"
       />
     </div>
-  )
-}
+  );
+};
 
-export default SearchBar
+export default SearchBar;

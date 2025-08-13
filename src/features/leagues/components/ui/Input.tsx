@@ -1,5 +1,5 @@
-import clsx from "clsx";
-import type { ComponentProps } from "react";
+import clsx from 'clsx';
+import type { ComponentProps } from 'react';
 
 const Input = ({ className, type, ...props }: ComponentProps<'input'>) => {
   return (
@@ -13,6 +13,6 @@ const Input = ({ className, type, ...props }: ComponentProps<'input'>) => {
       {...props}
     />
   );
-}
+};
 
 export default Input;

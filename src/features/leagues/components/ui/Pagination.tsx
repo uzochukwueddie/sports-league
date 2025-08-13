@@ -1,5 +1,5 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { FC, ReactElement } from "react";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import type { FC, ReactElement } from 'react';
 
 interface IPagination {
   currentPage: number;

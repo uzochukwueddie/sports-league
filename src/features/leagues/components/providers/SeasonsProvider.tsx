@@ -1,12 +1,12 @@
-import { useReducer, type FC, type ReactElement, type ReactNode } from "react";
-import { seasonReducer, SeasonsContext } from "../../context/SeasonsContext";
-import type { SeasonState } from "../../interfaces/season.interface";
-import { sportService } from "../../services/sport.service";
+import { useReducer, type FC, type ReactElement, type ReactNode } from 'react';
+import { seasonReducer, SeasonsContext } from '../../context/SeasonsContext';
+import type { SeasonState } from '../../interfaces/season.interface';
+import { sportService } from '../../services/sport.service';
 
 const initialState: SeasonState = {
   seasonBadges: {},
   loading: {},
-  errors: {},
+  errors: {}
 };
 
 const SeasonProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement => {
@@ -25,8 +25,8 @@ const SeasonProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement
           type: 'FETCH_BADGE_SUCCESS',
           payload: {
             leagueId,
-            badgeUrl: cachedBadgeUrl,
-          },
+            badgeUrl: cachedBadgeUrl
+          }
         });
         return;
       }
@@ -42,16 +42,16 @@ const SeasonProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement
             type: 'FETCH_BADGE_SUCCESS',
             payload: {
               leagueId,
-              badgeUrl: seasonWithBadge.strBadge,
-            },
+              badgeUrl: seasonWithBadge.strBadge
+            }
           });
         } else {
           dispatch({
             type: 'FETCH_BADGE_ERROR',
             payload: {
               leagueId,
-              error: 'No season badge found',
-            },
+              error: 'No season badge found'
+            }
           });
         }
       } else {
@@ -59,8 +59,8 @@ const SeasonProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement
           type: 'FETCH_BADGE_ERROR',
           payload: {
             leagueId,
-            error: 'No seasons found',
-          },
+            error: 'No seasons found'
+          }
         });
       }
     } catch (err) {
@@ -68,8 +68,8 @@ const SeasonProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement
         type: 'FETCH_BADGE_ERROR',
         payload: {
           leagueId,
-          error: err instanceof Error ? err.message : 'An error occurred',
-        },
+          error: err instanceof Error ? err.message : 'An error occurred'
+        }
       });
     }
   };
@@ -79,7 +79,7 @@ const SeasonProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement
     return {
       badgeUrl: state.seasonBadges[leagueId] || null,
       loading: state.loading[leagueId] || false,
-      error: state.errors[leagueId] || null,
+      error: state.errors[leagueId] || null
     };
   };
 
@@ -89,7 +89,7 @@ const SeasonProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement
         state,
         dispatch,
         fetchSeasonBadge,
-        getBadgeStatus,
+        getBadgeStatus
       }}
     >
       {children}

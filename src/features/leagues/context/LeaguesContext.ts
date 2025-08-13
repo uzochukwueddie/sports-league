@@ -1,5 +1,5 @@
-import { createContext, useContext } from "react";
-import type { LeaguesState, League } from "../interfaces/league.interface";
+import { createContext, useContext } from 'react';
+import type { LeaguesState, League } from '../interfaces/league.interface';
 
 type LeaguesAction =
   | { type: 'FETCH_START' }

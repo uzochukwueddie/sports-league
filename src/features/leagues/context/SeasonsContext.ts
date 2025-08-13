@@ -1,10 +1,10 @@
-import { createContext, useContext, type Dispatch } from "react";
-import type { SeasonState } from "../interfaces/season.interface";
+import { createContext, useContext, type Dispatch } from 'react';
+import type { SeasonState } from '../interfaces/season.interface';
 
 type SeasonAction =
   | { type: 'FETCH_BADGE_START'; payload: string }
   | { type: 'FETCH_BADGE_SUCCESS'; payload: { leagueId: string; badgeUrl: string } }
-  | { type: 'FETCH_BADGE_ERROR'; payload: { leagueId: string; error: string } }
+  | { type: 'FETCH_BADGE_ERROR'; payload: { leagueId: string; error: string } };
 
 interface SeasonContextType {
   state: SeasonState;
@@ -25,19 +25,19 @@ export const seasonReducer = (state: SeasonState, action: SeasonAction): SeasonS
       return {
         ...state,
         loading: { ...state.loading, [action.payload]: true },
-        errors: { ...state.errors, [action.payload]: null },
+        errors: { ...state.errors, [action.payload]: null }
       };
     case 'FETCH_BADGE_SUCCESS':
       return {
         ...state,
         seasonBadges: { ...state.seasonBadges, [action.payload.leagueId]: action.payload.badgeUrl },
-        loading: { ...state.loading, [action.payload.leagueId]: false },
+        loading: { ...state.loading, [action.payload.leagueId]: false }
       };
     case 'FETCH_BADGE_ERROR':
       return {
         ...state,
         loading: { ...state.loading, [action.payload.leagueId]: false },
-        errors: { ...state.errors, [action.payload.leagueId]: action.payload.error },
+        errors: { ...state.errors, [action.payload.leagueId]: action.payload.error }
       };
     default:
       return state;

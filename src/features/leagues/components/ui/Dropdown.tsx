@@ -3,7 +3,12 @@ import type { DropdownProps, Option } from '../../interfaces/ui.interface';
 import { ChevronDown } from 'lucide-react';
 import { useLeaguesContext } from '../../context/LeaguesContext';
 
-const Dropdown: FC<DropdownProps> = ({ options = [], placeholder = "Select an option", value, onChange }): ReactElement => {
+const Dropdown: FC<DropdownProps> = ({
+  options = [],
+  placeholder = 'Select an option',
+  value,
+  onChange
+}): ReactElement => {
   const { dispatch } = useLeaguesContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<Option | null>(value || null);
@@ -40,11 +45,14 @@ const Dropdown: FC<DropdownProps> = ({ options = [], placeholder = "Select an op
         className="w-full px-4 h-10 text-left bg-white border border-gray-200 rounded-lg hover:border-gray-200 focus:outline-none focus:ring-1 focus:ring-gray-200 focus:border-gray-200 transition-colors duration-200"
       >
         <div className="flex items-center justify-between">
-          <span className={selectedOption ? "text-gray-900" : "text-gray-500"}>
+          <span className={selectedOption ? 'text-gray-900' : 'text-gray-500'}>
             {selectedOption ? selectedOption.label : placeholder}
           </span>
-          <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isOpen ? 'transform rotate-180' : ''
-            }`} />
+          <ChevronDown
+            className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
+              isOpen ? 'transform rotate-180' : ''
+            }`}
+          />
         </div>
       </button>
 
@@ -56,14 +64,14 @@ const Dropdown: FC<DropdownProps> = ({ options = [], placeholder = "Select an op
             options.map((option: Option, index: number) => {
               const optionValue: string = option.value;
               const optionLabel: string = option.label;
-              const isSelected: boolean =
-                (typeof selectedOption === 'object' && selectedOption?.value === optionValue);
+              const isSelected: boolean = typeof selectedOption === 'object' && selectedOption?.value === optionValue;
               return (
                 <button
                   key={index}
                   onClick={() => handleOptionClick(option)}
-                  className={`w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors duration-150 ${isSelected ? 'bg-blue-50 text-blue-700' : 'text-gray-900'
-                    }`}
+                  className={`w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors duration-150 ${
+                    isSelected ? 'bg-blue-50 text-blue-700' : 'text-gray-900'
+                  }`}
                 >
                   {optionLabel}
                 </button>

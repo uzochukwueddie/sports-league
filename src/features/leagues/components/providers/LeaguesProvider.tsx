@@ -8,7 +8,7 @@ const initialState: LeaguesState = {
   loading: false,
   error: null,
   selectedSport: 'all sports',
-  searchTerm: '',
+  searchTerm: ''
 };
 
 const LeaguesProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement => {
@@ -23,7 +23,7 @@ const LeaguesProvider: FC<{ children: ReactNode }> = ({ children }): ReactElemen
     } catch (err) {
       dispatch({
         type: 'FETCH_ERROR',
-        payload: err instanceof Error ? err : new Error('Failed to fetch leagues'),
+        payload: err instanceof Error ? err : new Error('Failed to fetch leagues')
       });
     }
   }, []);
@@ -34,15 +34,16 @@ const LeaguesProvider: FC<{ children: ReactNode }> = ({ children }): ReactElemen
 
     if (state.selectedSport !== 'all sports') {
       filtered = filtered.filter((league) => {
-        return league.strSport.toLowerCase() === state.selectedSport.toLowerCase()
+        return league.strSport.toLowerCase() === state.selectedSport.toLowerCase();
       });
     }
 
     if (state.searchTerm) {
-      filtered = filtered.filter((league) =>
-        league.strLeague.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
-        (league.strLeagueAlternate &&
-          league.strLeagueAlternate.toLowerCase().includes(state.searchTerm.toLowerCase()))
+      filtered = filtered.filter(
+        (league) =>
+          league.strLeague.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
+          (league.strLeagueAlternate &&
+            league.strLeagueAlternate.toLowerCase().includes(state.searchTerm.toLowerCase()))
       );
     }
 
@@ -63,7 +64,7 @@ const LeaguesProvider: FC<{ children: ReactNode }> = ({ children }): ReactElemen
         dispatch,
         fetchLeagues,
         getFilteredLeagues,
-        getSportTypes,
+        getSportTypes
       }}
     >
       {children}
@@ -72,5 +73,3 @@ const LeaguesProvider: FC<{ children: ReactNode }> = ({ children }): ReactElemen
 };
 
 export default LeaguesProvider;
-
-
